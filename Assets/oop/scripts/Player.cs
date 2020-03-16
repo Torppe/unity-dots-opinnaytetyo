@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public LayerMask layerMask;
+    public GameObject explosionPrefab;
 
     private Transform currentTarget = null;
     private readonly Collider2D[] nearbyEnemies = new Collider2D[100];
@@ -54,6 +55,9 @@ public class Player : MonoBehaviour {
             foreach(Collider2D killedTarget in killedTargets) {
                 Destroy(killedTarget.gameObject);
             }
+
+            GameObject effect = GameObject.Instantiate(explosionPrefab, currentTarget.position, Quaternion.Euler(0,0, Random.Range(0,360)));
+            Destroy(effect, 1);
 
             timer = currentTime + 1;
             currentTarget = null;

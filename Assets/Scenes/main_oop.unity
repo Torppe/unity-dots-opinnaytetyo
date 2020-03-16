@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a718f7a2d3aec49a8bb9e1eb4e670f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 10000
   objectToSpawn: {fileID: 5916585765751306520, guid: 3c349520f48594b4db6880df0a24b68d,
     type: 3}
 --- !u!1001 &7226695996471067301
@@ -353,6 +354,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7226695996840822509, guid: 9c4454b5e37afb844a47f9cd7f708882,
+        type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 6970388029138014092, guid: 9ed1e60f4db5a9f4fa457413e76b3559,
+        type: 3}
     - target: {fileID: 7226695996840822510, guid: 9c4454b5e37afb844a47f9cd7f708882,
         type: 3}
       propertyPath: m_LocalPosition.x

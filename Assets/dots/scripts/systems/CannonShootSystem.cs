@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
 
@@ -21,8 +23,6 @@ public class CannonShootSystem : ComponentSystem {
                 EntityManager.AddComponentData(explosion, new AreaDamage { position = targetPosition, range = 2f });
 
                 cannon.timer = cannon.cooldown;
-
-                Debug.Log("Explosion created");
             }
         });
     }

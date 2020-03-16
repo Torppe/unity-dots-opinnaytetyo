@@ -96,6 +96,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  explosionPrefab: {fileID: 6970388029138014092, guid: 9ed1e60f4db5a9f4fa457413e76b3559,
+    type: 3}
 --- !u!61 &7226695996840822505
 BoxCollider2D:
   m_ObjectHideFlags: 0
