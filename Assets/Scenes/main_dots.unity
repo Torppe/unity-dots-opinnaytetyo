@@ -341,8 +341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabEntity: {fileID: 41018951227027327, guid: 903e40243470f2648a207e7c64261cf4,
     type: 3}
-  explosionEntity: {fileID: 6970388029138014092, guid: ce32726974b419341bd4cef77f79de1b,
-    type: 3}
 --- !u!4 &2105266301
 Transform:
   m_ObjectHideFlags: 0
@@ -364,16 +362,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 165628381128233003, guid: 8cf4590182e1c66438444ca636913c5c,
-        type: 3}
-      propertyPath: cooldown
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400884164216848134, guid: 8cf4590182e1c66438444ca636913c5c,
-        type: 3}
-      propertyPath: FindRange
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4426690593722787242, guid: 8cf4590182e1c66438444ca636913c5c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -434,20 +422,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_dots
       objectReference: {fileID: 0}
-    - target: {fileID: 4426690593722787243, guid: 8cf4590182e1c66438444ca636913c5c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426690593722787246, guid: 8cf4590182e1c66438444ca636913c5c,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 4426690593722787247, guid: 8cf4590182e1c66438444ca636913c5c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf4590182e1c66438444ca636913c5c, type: 3}

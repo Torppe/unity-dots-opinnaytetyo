@@ -21,7 +21,7 @@ public class CannonShootSystem : ComponentSystem {
 
                 Entity explosion = EntityManager.CreateEntity();
                 EntityManager.AddComponentData(explosion, new AreaDamage { position = targetPosition, range = 2f });
-
+                //GameObject.Instantiate()
                 cannon.timer = cannon.cooldown;
             }
         });

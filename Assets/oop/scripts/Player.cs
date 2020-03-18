@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     public LayerMask layerMask;
     public GameObject explosionPrefab;
+    public Transform turretParent;
 
     private Transform currentTarget = null;
     private readonly Collider2D[] nearbyEnemies = new Collider2D[100];
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour {
         } else {
             ShootTarget();
         }
+        RotateTurret();
     }
 
     void FindTarget() {
@@ -59,8 +61,18 @@ public class Player : MonoBehaviour {
             GameObject effect = GameObject.Instantiate(explosionPrefab, currentTarget.position, Quaternion.Euler(0,0, Random.Range(0,360)));
             Destroy(effect, 1);
 
-            timer = currentTime + 1;
+            timer = currentTime + 0.2f;
             currentTarget = null;
         }
+    }
+
+    Quaternion targetRotation = Quaternion.identity;
+    private float rotationSpeed = 40f;
+    void RotateTurret() {
+        if(currentTarget != null && Quaternion.Angle(turretParent.rotation, targetRotation) < 1) {
+            Vector3 heading = (currentTarget.position - turretParent.position).normalized;
+            targetRotation = Quaternion.LookRotation(Vector3.forward, heading);
+        }
+        turretParent.rotation = Quaternion.Lerp(turretParent.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 }

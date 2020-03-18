@@ -34,7 +34,7 @@ public class FindTargetSystem : ComponentSystem {
                     });
 
                 if (closestTarget != Entity.Null) {
-                    PostUpdateCommands.AddComponent(entity, new HasTarget { target = closestTarget });
+                    PostUpdateCommands.AddComponent(entity, new HasTarget { target = closestTarget, position = closestPosition });
                 }
             });
     }
