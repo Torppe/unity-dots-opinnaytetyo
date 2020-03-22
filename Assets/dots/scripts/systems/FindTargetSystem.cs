@@ -16,24 +16,22 @@ public class FindTargetSystem : ComponentSystem {
         Entities
             .WithNone<HasTarget>()
             .WithAll<PlayerTag>()
-            .ForEach((Entity entity, ref Translation translation) => {
-                float3 unitPosition = translation.Value;
+            .ForEach((Entity entity, ref LocalToWorld translation) => {
+                float3 unitPosition = translation.Position;
                 Entity closestTarget = Entity.Null;
                 float3 closestPosition = float3.zero;
+                float range = 8f;
 
                 Entities
                     .WithAll<EnemyTag>()
                     .ForEach((Entity target, ref Translation targetTranslation) => {
-                        if (closestTarget == Entity.Null) {
-                            closestTarget = target;
-                            closestPosition = targetTranslation.Value;
-                        } else if (math.distance(unitPosition, targetTranslation.Value) < math.distance(unitPosition, closestPosition)) {
+                        if (closestTarget == Entity.Null || math.distance(unitPosition, targetTranslation.Value) < math.distance(unitPosition, closestPosition)) {
                             closestTarget = target;
                             closestPosition = targetTranslation.Value;
                         }
                     });
 
-                if (closestTarget != Entity.Null) {
+                if (closestTarget != Entity.Null && math.distance(unitPosition, closestPosition) < range) {
                     PostUpdateCommands.AddComponent(entity, new HasTarget { target = closestTarget, position = closestPosition });
                 }
             });
@@ -44,11 +42,22 @@ public class FindTargetSystem : ComponentSystem {
             .WithNone<HasTarget>()
             .WithAll<EnemyTag>()
             .ForEach((Entity entity, ref Translation translation) => {
+                float3 unitPosition = translation.Value;
+                Entity closestTarget = Entity.Null;
+                float3 closestPosition = float3.zero;
+
                 Entities
                     .WithAll<PlayerTag>()
-                    .ForEach((Entity foundTarget, ref Translation targetTranslation) => {
-                        PostUpdateCommands.AddComponent(entity, new HasTarget { target = foundTarget, position = targetTranslation.Value });
+                    .ForEach((Entity target, ref LocalToWorld targetTranslation) => {
+                        if (closestTarget == Entity.Null || math.distance(unitPosition, targetTranslation.Position) < math.distance(unitPosition, closestPosition)) {
+                            closestTarget = target;
+                            closestPosition = targetTranslation.Position;
+                        }
                     });
+
+                if (closestTarget != Entity.Null) {
+                    PostUpdateCommands.AddComponent(entity, new HasTarget { target = closestTarget, position = closestPosition });
+                }
             });
     }
 }

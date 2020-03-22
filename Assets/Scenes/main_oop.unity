@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a718f7a2d3aec49a8bb9e1eb4e670f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 1000
+  amount: 10000
   objectToSpawn: {fileID: 5916585765751306520, guid: 3c349520f48594b4db6880df0a24b68d,
     type: 3}
 --- !u!1001 &7226695996471067301
@@ -349,6 +349,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2087903934, guid: 9c4454b5e37afb844a47f9cd7f708882, type: 3}
+      propertyPath: rotationSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7226695996840822498, guid: 9c4454b5e37afb844a47f9cd7f708882,
         type: 3}
       propertyPath: m_Name

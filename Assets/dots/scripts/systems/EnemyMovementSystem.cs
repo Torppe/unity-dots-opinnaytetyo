@@ -9,13 +9,14 @@ using Unity.Mathematics;
 public class EnemyMovementSystem : ComponentSystem {
     protected override void OnUpdate() {
         float deltaTime = Time.DeltaTime;
-
         Entities
+            .WithAll<HasTarget>()
             .WithAll<EnemyTag>()
-            .ForEach((ref Translation translation, ref MoveDirection moveDirection, ref HasTarget hasTarget) => {
-                if (math.distance(hasTarget.position, translation.Value) > 2) {
-                    moveDirection.Value = math.normalize(hasTarget.position - translation.Value);
-                    translation.Value += moveDirection.Value * deltaTime;
+            .ForEach((ref Translation translation, ref HasTarget hasTarget) => {
+                float3 direction = hasTarget.position - translation.Value;
+                float distance = math.length(direction);
+                if (distance > 2) {
+                    translation.Value += (direction / distance) * deltaTime;
                 }
             });
     }
@@ -27,10 +28,11 @@ public class EnemyMovementSystem : ComponentSystem {
 
 //        JobHandle jobHandle = Entities
 //            .WithAll<EnemyTag>()
-//            .ForEach((ref Translation translation, ref MoveDirection moveDirection, ref HasTarget hasTarget) => {
-//                if (math.distance(hasTarget.position, translation.Value) > 2) {
-//                    moveDirection.Value = math.normalize(hasTarget.position - translation.Value);
-//                    translation.Value += moveDirection.Value * deltaTime;
+//            .ForEach((ref Translation translation, in HasTarget hasTarget) => {
+//                float3 direction = hasTarget.position - translation.Value;
+//                float distance = math.length(direction);
+//                if (distance > 2) {
+//                    translation.Value += (direction / distance) * deltaTime;
 //                }
 //            }).Schedule(inputDeps);
 //        return jobHandle;

@@ -6,31 +6,38 @@ using Unity.Transforms;
 using Unity.Mathematics;
 
 public class RotateToTargetSystem : ComponentSystem {
-    float3 target = float3.zero;
-    quaternion targetRotation = quaternion.identity;
-
     protected override void OnUpdate() {
-        GetTarget();
         Rotate();
+        Move();
     }
-    private void GetTarget() {
-        Entities.WithAll<PlayerTag>().WithAll<HasTarget>().ForEach((ref HasTarget hasTarget) => {
-             target = hasTarget.position;
-        });
+
+    private void Move() {
+        float delta = Time.DeltaTime;
+
+        Entities
+            .WithAll<PlayerTag>()
+            .WithAll<MoveDirection>()
+            .ForEach((ref Translation translation) => {
+                translation.Value.x += 1 * delta;
+            });
     }
+
     private void Rotate() {
         float delta = Time.DeltaTime;
 
-        Entities.WithAll<TurretTag>().ForEach((ref Rotation rotation, ref Translation translation) => {
+        Entities
+            .WithAll<RotateToTarget>()
+            .WithAll<HasTarget>()
+            .ForEach((Entity entity, ref Rotation rotation, ref LocalToWorld translation, ref HasTarget hasTarget) => {
+                float3 position = new float3(translation.Position.x, translation.Position.y, 0);
+                float3 heading = math.normalize(hasTarget.position - position);
+                quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, heading);
 
-            if (Quaternion.Angle(rotation.Value, targetRotation) < 1) {
-                float3 position = new float3(translation.Value.x, translation.Value.y, 0);
-                float3 heading = math.normalize(target - position);
-                float targetAngle = math.atan2(target.y, target.x);
-                targetRotation = Quaternion.LookRotation(Vector3.forward, heading);
-            }
-
-            rotation.Value = Quaternion.Lerp(rotation.Value, targetRotation, delta * 20f);
-        });
+                if(!EntityManager.Exists(hasTarget.target)) {
+                    EntityManager.RemoveComponent<HasTarget>(entity);
+                } else {
+                    rotation.Value = Quaternion.Lerp(rotation.Value, targetRotation, delta * 20f);
+                }
+            });
     }
 }

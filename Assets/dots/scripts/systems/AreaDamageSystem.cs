@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using Unity.Jobs;
 
 public class AreaDamageSystem : ComponentSystem {
     protected override void OnUpdate() {
@@ -12,7 +13,7 @@ public class AreaDamageSystem : ComponentSystem {
             float range = areaDamage.range;
 
             Entities.WithAll<EnemyTag>().ForEach((Entity enemyEntity, ref Translation translation) => {
-                if(math.distance(position, translation.Value) <= range) {
+                if (math.distance(position, translation.Value) <= range) {
                     PostUpdateCommands.DestroyEntity(enemyEntity);
                 }
             });
