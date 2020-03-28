@@ -12,7 +12,7 @@ using Unity.Mathematics;
 //            .WithAll<Cannon>()
 //            .WithAll<HasTarget>()
 //            .ForEach((Entity entity, ref Cannon cannon, ref HasTarget hasTarget) => {
-//                if(!EntityManager.Exists(hasTarget.target)) {
+//                if (!EntityManager.Exists(hasTarget.target)) {
 //                    PostUpdateCommands.RemoveComponent(entity, typeof(HasTarget));
 //                    return;
 //                }
@@ -26,7 +26,7 @@ using Unity.Mathematics;
 //                    EntityManager.AddComponentData(explosion, new AreaDamage { position = targetPosition, range = 2f });
 //                    cannon.timer = cannon.cooldown;
 //                }
-//        });
+//            });
 //    }
 //}
 
@@ -51,7 +51,6 @@ public class CannonShootSystem : SystemBase {
 
                     Entity explosion = ecb.CreateEntity(entityInQueryIndex);
                     ecb.AddComponent(entityInQueryIndex, explosion, new AreaDamage { position = targetPosition, range = 2f });
-
                     cannon.timer = cannon.cooldown;
                 }
             }).ScheduleParallel();

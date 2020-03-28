@@ -43,11 +43,6 @@ using Unity.Mathematics;
 //}
 
 public class RotateToTargetSystem : SystemBase {
-
-    protected override void OnCreate() {
-        base.OnCreate();
-    }
-
     protected override void OnUpdate() {
         Rotate();
         Move();
@@ -69,13 +64,12 @@ public class RotateToTargetSystem : SystemBase {
         float delta = Time.DeltaTime;
 
         Entities
-            .WithAll<RotateToTarget>()
-            .ForEach((Entity entity, int entityInQueryIndex, ref Rotation rotation, in LocalToWorld translation, in HasTarget hasTarget) => {
+            .ForEach((Entity entity, int entityInQueryIndex, ref Rotation rotation, in LocalToWorld translation, in HasTarget hasTarget, in RotateToTarget rotateToTarget) => {
                 float3 position = new float3(translation.Position.x, translation.Position.y, 0);
                 float3 heading = math.normalize(hasTarget.position - position);
                 quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, heading);
 
-                rotation.Value = Quaternion.Lerp(rotation.Value, targetRotation, delta * 20f);
+                rotation.Value = Quaternion.Lerp(rotation.Value, targetRotation, delta * rotateToTarget.rotationSpeed);
             })
             .ScheduleParallel();
     }

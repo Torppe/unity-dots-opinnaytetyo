@@ -49,7 +49,9 @@ public class AreaDamageSystem : SystemBase {
             ecb.DestroyEntity(entityInQueryIndex, entity);
         }).ScheduleParallel();
 
-        translationArray.Dispose(this.Dependency);
-        entityArray.Dispose(this.Dependency);
+        this.CompleteDependency();
+
+        translationArray.Dispose();
+        entityArray.Dispose();
     }
 }

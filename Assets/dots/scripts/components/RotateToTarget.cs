@@ -4,6 +4,6 @@ using UnityEngine;
 using Unity.Entities;
 
 [GenerateAuthoringComponent]
-public class RotateToTarget : IComponentData {
-
+public struct RotateToTarget : IComponentData {
+    public float rotationSpeed;
 }

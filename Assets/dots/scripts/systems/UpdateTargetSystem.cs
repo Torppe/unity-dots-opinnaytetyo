@@ -17,8 +17,8 @@ public class UpdateTargetSystem : SystemBase {
         var componentData = GetComponentDataFromEntity<LocalToWorld>(false);
 
         Entities
-            .ForEach((int entityInQueryIndex, Entity entity, ref HasTarget hasTarget) => {
-                if(!componentData.Exists(hasTarget.target)) {
+            .ForEach((int entityInQueryIndex, Entity entity, ref HasTarget hasTarget, in FindingTarget findTarget) => {
+                if(!componentData.Exists(hasTarget.target) || math.distance(componentData[entity].Position, hasTarget.position) > findTarget.FindRange) {
                     ecb.RemoveComponent<HasTarget>(entityInQueryIndex, entity);
                 } else {
                     LocalToWorld ltw = componentData[hasTarget.target];

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 41018951227027324}
   - component: {fileID: 41018951227027325}
   - component: {fileID: 41018951227027321}
-  - component: {fileID: 8121994279744789690}
+  - component: {fileID: -2304514775554973315}
+  - component: {fileID: -4126988964625310298}
   m_Layer: 0
   m_Name: Enemy_dots
   m_TagString: Untagged
@@ -93,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bcac8eaaca48b048915cca4919dd91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8121994279744789690
+--- !u!114 &-2304514775554973315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,4 +106,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a27cf42dc60ac345b322a5e0a94a137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FindRange: 0
+  targetType: 0
+  FindRange: 10
+--- !u!114 &-4126988964625310298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41018951227027327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7e37e5a280f7043acf9b047f5fb59f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
