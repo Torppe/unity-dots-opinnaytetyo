@@ -50,7 +50,8 @@ public class CannonShootSystem : SystemBase {
                     float3 targetPosition = hasTarget.position;
 
                     Entity explosion = ecb.CreateEntity(entityInQueryIndex);
-                    ecb.AddComponent(entityInQueryIndex, explosion, new AreaDamage { position = targetPosition, range = 2f });
+                    ecb.AddComponent(entityInQueryIndex, explosion, new AreaDamage { position = targetPosition, range = 3f, damage = 1f });
+
                     cannon.timer = cannon.cooldown;
                 }
             }).ScheduleParallel();

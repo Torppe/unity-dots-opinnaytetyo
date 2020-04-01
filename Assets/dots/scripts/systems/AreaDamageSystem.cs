@@ -31,27 +31,32 @@ public class AreaDamageSystem : SystemBase {
     protected override void OnCreate() {
         base.OnCreate();
         m_EndSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        query = GetEntityQuery(typeof(EnemyTag), ComponentType.ReadOnly<Translation>());
+        query = GetEntityQuery(typeof(AreaDamage));
     }
 
     protected override void OnUpdate() {
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+        NativeArray<AreaDamage> asd = query.ToComponentDataArray<AreaDamage>(Allocator.TempJob);
 
-        NativeArray<Translation> translationArray = query.ToComponentDataArray<Translation>(Allocator.TempJob);
-        NativeArray<Entity> entityArray = query.ToEntityArray(Allocator.TempJob);
-
-        Entities.ForEach((Entity entity, int entityInQueryIndex, in AreaDamage areaDamage) => {
-            for(int i=0; i < translationArray.Length; i++) {
-                if (math.distance(translationArray[i].Value, areaDamage.position) <= areaDamage.range) {
-                    ecb.DestroyEntity(entityInQueryIndex, entityArray[i]);
+        Entities
+            .WithAll<EnemyTag>()
+            .WithAll<Health>()
+            .ForEach((Entity entity, int entityInQueryIndex, ref DynamicBuffer<Damage> buffer, in Translation translation) => {
+                for (int i = 0; i < asd.Length; i++) {
+                    if (math.distance(asd[i].position, translation.Value) <= asd[i].range) {
+                        buffer.Add(new Damage { Value = asd[i].damage });
+                    }
                 }
-            }
-            ecb.DestroyEntity(entityInQueryIndex, entity);
-        }).ScheduleParallel();
+            })
+            .WithDeallocateOnJobCompletion(asd)
+            .WithStoreEntityQueryInField(ref query)
+            .ScheduleParallel();
 
-        this.CompleteDependency();
-
-        translationArray.Dispose();
-        entityArray.Dispose();
+        Entities
+            .WithAll<AreaDamage>()
+            .ForEach((Entity entity, int entityInQueryIndex) => {
+                ecb.DestroyEntity(entityInQueryIndex, entity);
+            })
+            .Schedule();
     }
 }

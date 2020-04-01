@@ -158,8 +158,6 @@ public class FindTargetSystem : SystemBase {
         NativeArray<LocalToWorld> playerPositionArray = query2.ToComponentDataArray<LocalToWorld>(Allocator.TempJob);
         NativeArray<Entity> playerEntityArray = query2.ToEntityArray(Allocator.TempJob);
 
-        Debug.Log(playerPositionArray.Length);
-
         Entities
             .WithNone<HasTarget>()
             .ForEach((Entity entity, int entityInQueryIndex, in LocalToWorld translation, in FindingTarget findTarget) => {

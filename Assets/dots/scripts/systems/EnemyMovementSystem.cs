@@ -31,6 +31,7 @@ public class EnemyMovementJobSystem : SystemBase {
             .ForEach((ref Translation translation, in HasTarget hasTarget) => {
                 float3 direction = hasTarget.position - translation.Value;
                 float distance = math.length(direction);
+
                 if (distance > 2) {
                     translation.Value += (direction / distance) * deltaTime;
                 }

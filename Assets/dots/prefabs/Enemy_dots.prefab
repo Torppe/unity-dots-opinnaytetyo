@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 41018951227027321}
   - component: {fileID: -2304514775554973315}
   - component: {fileID: -4126988964625310298}
+  - component: {fileID: 2904495038350139626}
+  - component: {fileID: -2252187167594219823}
+  - component: {fileID: -6318362695818623407}
   m_Layer: 0
   m_Name: Enemy_dots
   m_TagString: Untagged
@@ -107,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 0
-  FindRange: 10
+  FindRange: 999
 --- !u!114 &-4126988964625310298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,3 +124,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 5
+--- !u!114 &2904495038350139626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41018951227027327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2ce41cd72d7ac4fab5e86feefc3fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  timer: 0
+  cooldownAmount: 2
+--- !u!114 &-2252187167594219823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41018951227027327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b89ab62eab9dcc449b31a059c7554cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max: 1
+  Value: 1
+--- !u!114 &-6318362695818623407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41018951227027327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ea2541f4f61ca44ac696a5d68036b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Values: []

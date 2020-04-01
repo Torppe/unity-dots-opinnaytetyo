@@ -38,13 +38,15 @@ public class EnemySpawnerSystem : SystemBase {
     }
 
     protected override void OnStartRunning() {
+        base.OnStartRunning();
+
         int range = 100;
         int spawnAmount = 10000;
 
         Random random = new Random(56);
 
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
-        Entities.ForEach((int entityInQueryIndex, ref PrefabEntityComponent prefabEntityComponent) => {
+        Entities.ForEach((Entity entity, int entityInQueryIndex, ref PrefabEntityComponent prefabEntityComponent) => {
             for (int i = 0; i < spawnAmount; i++) {
                 Entity spawnedEntity = ecb.Instantiate(entityInQueryIndex, prefabEntityComponent.prefabEntity);
                 ecb.SetComponent<Translation>(
@@ -53,6 +55,7 @@ public class EnemySpawnerSystem : SystemBase {
                         new Translation { Value = new float3(random.NextFloat(-range, range), random.NextFloat(-range, range), 0) }
                     );
             }
+            ecb.DestroyEntity(entityInQueryIndex, entity);
         }).ScheduleParallel();
     }
 
