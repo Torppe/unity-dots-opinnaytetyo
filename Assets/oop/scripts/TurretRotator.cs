@@ -9,7 +9,7 @@ public class TurretRotator : MonoBehaviour {
     [Range(0,100)]
     [SerializeField]
     private float rotationSpeed = 40f;
-    private Player player; 
+    private Player player;
 
     private Quaternion targetRotation = Quaternion.identity;
 
