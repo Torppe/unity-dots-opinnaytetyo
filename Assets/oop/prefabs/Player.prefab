@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 7226695996840822510}
   - component: {fileID: 4423190247259972657}
   - component: {fileID: 7226695996840822509}
+  - component: {fileID: 831036653495609188}
+  - component: {fileID: 4796008820956100577}
   - component: {fileID: 2087903934}
   m_Layer: 0
   m_Name: Player
@@ -128,14 +130,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+--- !u!114 &831036653495609188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7226695996840822498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3fbf5849aeb294998e552de61ea4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findRange: 10
+--- !u!114 &4796008820956100577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7226695996840822498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 726d6c10111f1fc4b82246b0009b56b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   attackCooldown: 0.5
-  attackRange: 10
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
   explosionPrefab: {fileID: 6970388029138014092, guid: 9ed1e60f4db5a9f4fa457413e76b3559,
     type: 3}
-  nearbyEnemies: []
 --- !u!114 &2087903934
 MonoBehaviour:
   m_ObjectHideFlags: 0

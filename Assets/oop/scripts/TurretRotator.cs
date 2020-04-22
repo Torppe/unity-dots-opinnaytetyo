@@ -9,12 +9,12 @@ public class TurretRotator : MonoBehaviour {
     [Range(0,100)]
     [SerializeField]
     private float rotationSpeed = 40f;
-    private Player player;
+    private FindTarget findTarget;
 
     private Quaternion targetRotation = Quaternion.identity;
 
     void Start() {
-        player = GetComponent<Player>();
+        findTarget = GetComponent<FindTarget>();
     }
 
     void Update() {
@@ -22,8 +22,8 @@ public class TurretRotator : MonoBehaviour {
     }
 
     private void RotateTurret() {
-        if (player.Target != null && Quaternion.Angle(turretParent.rotation, targetRotation) < 1) {
-            Vector3 heading = (player.Target.position - turretParent.position).normalized;
+        if (findTarget.Target != null && Quaternion.Angle(turretParent.rotation, targetRotation) < 1) {
+            Vector3 heading = (findTarget.Target.position - turretParent.position).normalized;
             targetRotation = Quaternion.LookRotation(Vector3.forward, heading);
         }
         turretParent.rotation = Quaternion.Lerp(turretParent.rotation, targetRotation, Time.deltaTime * rotationSpeed);
