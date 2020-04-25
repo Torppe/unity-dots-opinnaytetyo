@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(FindTarget))]
+[RequireComponent(typeof(ShootTarget))]
 public class Player : LivingEntity {
     private FindTarget findTarget;
     private ShootTarget shootTarget;

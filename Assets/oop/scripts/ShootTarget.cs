@@ -6,6 +6,8 @@ public class ShootTarget : MonoBehaviour {
     [Range(0, 5)]
     [SerializeField]
     private float attackCooldown = 0.5f;
+    [SerializeField]
+    private float attackDamage = 1f;
     private float timer = 0;
 
     [SerializeField]
@@ -21,8 +23,8 @@ public class ShootTarget : MonoBehaviour {
                 if (enemy == null)
                     continue;
 
-                if ((enemy.transform.position - target.position).magnitude <= 3f) {
-                    Destroy(enemy);
+                if ((enemy.transform.position - target.position).magnitude <= 3f && enemy.TryGetComponent<IDamageable>(out var damageable)) {
+                    damageable.TakeDamage(attackDamage);
                 }
             }
 
