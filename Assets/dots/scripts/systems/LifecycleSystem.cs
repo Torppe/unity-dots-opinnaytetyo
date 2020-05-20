@@ -22,6 +22,7 @@ public class LifecycleSystem : SystemBase {
             health.Value = health.max;
             ecb.AddBuffer<Damage>(entityInQueryIndex, entity);
         }).ScheduleParallel();
+
     }
     protected override void OnUpdate() {
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
@@ -31,8 +32,8 @@ public class LifecycleSystem : SystemBase {
             .ForEach((Entity entity, int entityInQueryIndex) => {
                 ecb.DestroyEntity(entityInQueryIndex, entity);
             })
-            .ScheduleParallel();
+            .Schedule();
 
-        m_EndSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
+        this.CompleteDependency();
     }
 }
