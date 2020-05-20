@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
+using Unity.Transforms;
 
+[UpdateBefore(typeof(LifecycleSystem))]
 public class TakeDamageSystem : SystemBase {
     EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
 
@@ -17,21 +19,27 @@ public class TakeDamageSystem : SystemBase {
         Entities
             .WithNone<DeadTag>()
             .ForEach((Entity entity, int entityInQueryIndex, ref DynamicBuffer<Damage> damageBuffer, ref Health health) => {
-            if (damageBuffer.Length == 0)
-                return;
+                if (damageBuffer.Length == 0)
+                    return;
 
-            for(int i = 0; i < damageBuffer.Length; i++) {
-                health.Value -= damageBuffer[i].Value;
-                if(health.Value <= 0) {
-                    ecb.AddComponent<DeadTag>(entityInQueryIndex, entity);
-                    break;
+                for(int i = 0; i < damageBuffer.Length; i++) {
+                    health.Value -= damageBuffer[i].Value;
+                    if(health.Value <= 0) {
+                        ecb.AddComponent<DeadTag>(entityInQueryIndex, entity);
+                        break;
+                    }
                 }
-            }
 
-            damageBuffer.Clear();
-        }).ScheduleParallel();
+                damageBuffer.Clear();
+            }).Schedule();
 
-        m_EndSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
+        Entities
+            .WithAll<DeadTag>()
+            .ForEach((Entity entity, int entityInQueryIndex, ref DynamicBuffer<Child> children) => {
+                for(int i = 0; i < children.Length; i++) {
+                    ecb.AddComponent<DeadTag>(entityInQueryIndex, children[i].Value);
+                }
+            }).Schedule();
     }
 }
 

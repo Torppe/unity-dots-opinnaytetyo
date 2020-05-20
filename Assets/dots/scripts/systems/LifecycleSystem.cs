@@ -25,22 +25,13 @@ public class LifecycleSystem : SystemBase {
     }
     protected override void OnUpdate() {
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
-        var children = GetBufferFromEntity<Child>(false);
 
         Entities
             .WithAll<DeadTag>()
             .ForEach((Entity entity, int entityInQueryIndex) => {
-                if (children.Exists(entity)) {
-                    var child = children[entity];
-
-                    for (int i = 0; i < child.Length; i++) {
-                        ecb.DestroyEntity(entityInQueryIndex, child[i].Value);
-                    }
-                }
-
                 ecb.DestroyEntity(entityInQueryIndex, entity);
             })
-            .Schedule();
+            .ScheduleParallel();
 
         m_EndSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
     }
