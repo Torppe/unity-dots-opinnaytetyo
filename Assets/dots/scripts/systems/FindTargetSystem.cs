@@ -7,34 +7,6 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Collections;
-
-//public class FindTargetSystem : SystemBase {
-//    protected override void OnUpdate() {
-//        Entities
-//            .WithNone<HasTarget>()
-//            .WithAll<PlayerTag>()
-//            .ForEach((Entity entity, ref Translation translation) => {
-//                float3 unitPosition = translation.Value;
-//                Entity closestTarget = Entity.Null;
-//                float3 closestPosition = float3.zero;
-//                float range = 8f;
-
-//                Entities
-//                    .WithAll<EnemyTag>()
-//                    .ForEach((Entity target, ref Translation targetTranslation) => {
-//                        if (closestTarget == Entity.Null || math.distance(unitPosition, targetTranslation.Value) < math.distance(unitPosition, closestPosition)) {
-//                            closestTarget = target;
-//                            closestPosition = targetTranslation.Value;
-//                        }
-//                    });
-
-//                if (closestTarget != Entity.Null && math.distance(unitPosition, closestPosition) < range) {
-//                    EntityManager.AddComponentData(entity, new HasTarget { target = closestTarget, position = closestPosition });
-//                }
-//            }).Run();
-//    }
-//}
-
 public class FindTargetSystem : SystemBase {
     EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
     EntityQuery query;

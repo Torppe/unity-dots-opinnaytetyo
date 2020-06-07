@@ -19,19 +19,3 @@ public class EnemyMovementJobSystem : SystemBase {
             }).ScheduleParallel();
     }
 }
-
-//public class EnemyMovementSystem : ComponentSystem {
-//    protected override void OnUpdate() {
-//        float deltaTime = Time.DeltaTime;
-//        Entities
-//            .WithAll<HasTarget>()
-//            .WithAll<EnemyTag>()
-//            .ForEach((ref Translation translation, ref HasTarget hasTarget) => {
-//                float3 direction = hasTarget.position - translation.Value;
-//                float distance = math.length(direction);
-//                if (distance > 2) {
-//                    translation.Value += (direction / distance) * deltaTime;
-//                }
-//            });
-//    }
-//}

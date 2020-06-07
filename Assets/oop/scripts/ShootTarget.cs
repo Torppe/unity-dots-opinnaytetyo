@@ -17,7 +17,7 @@ public class ShootTarget : MonoBehaviour {
     public void Shoot(Transform target) {
         float currentTime = Time.time;
         if (currentTime > timer) {
-            SpawnExplosionEffect(target.position);
+            //SpawnExplosionEffect(target.position);
 
             foreach (GameObject enemy in NearbyEnemies) {
                 if (enemy == null)
